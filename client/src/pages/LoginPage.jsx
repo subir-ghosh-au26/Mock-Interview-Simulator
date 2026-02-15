@@ -42,7 +42,7 @@ export default function LoginPage() {
             <div className="auth-card glass-card fade-in">
                 <div className="auth-header">
                     <span className="auth-icon">🔐</span>
-                    <h1 className="page-title">Welcome Back</h1>
+                    <h1 className="page-title">Welcome to NexRound</h1>
                     <p className="page-subtitle">Sign in to continue your interview practice</p>
                 </div>
 

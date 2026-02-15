@@ -20,7 +20,7 @@ export default function Navbar() {
             <div className="navbar-inner">
                 <NavLink to="/" className="navbar-brand">
                     <span className="brand-icon">🎯</span>
-                    <span className="brand-text">InterviewAI</span>
+                    <span className="brand-text">NexRound</span>
                 </NavLink>
 
                 <div className="navbar-links">
@@ -45,8 +45,8 @@ export default function Navbar() {
                             to="/admin"
                             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
                         >
-                            <span className="nav-icon">👑</span>
-                            <span>Admin</span>
+                            <span className="nav-icon">👤</span>
+                            <span>Users</span>
                         </NavLink>
                     )}
 
