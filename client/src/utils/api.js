@@ -1,4 +1,9 @@
-const API_BASE = import.meta.env.VITE_API_URL || '/api';
+let API_BASE = import.meta.env.VITE_API_URL || '/api';
+
+// Ensure API_BASE always handles the /api prefix correctly for absolute URLs
+if (API_BASE.startsWith('http') && !API_BASE.endsWith('/api')) {
+    API_BASE = API_BASE.endsWith('/') ? `${API_BASE}api` : `${API_BASE}/api`;
+}
 
 class ApiError extends Error {
     constructor(message, status) {

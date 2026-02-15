@@ -20,11 +20,21 @@ app.use(helmet({
 }));
 
 // CORS configuration
-const corsOptions = {
-    origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : true,
-    credentials: true
-};
-app.use(cors(corsOptions));
+const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim()) : [];
+app.use(cors({
+    origin: (origin, callback) => {
+        // Allow if no origin (server-to-server), if allowedOrigins is empty (allow all), or if origin matches
+        if (!origin || allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            console.warn(`CORS Reject: ${origin}. Allowed Origins: ${allowedOrigins.join(', ')}`);
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // Body parsing
 app.use(express.json({ limit: '10mb' }));
