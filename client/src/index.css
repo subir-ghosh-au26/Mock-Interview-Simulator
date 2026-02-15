@@ -1491,3 +1491,204 @@ body {
     display: none;
   }
 }
+
+/* ===== Admin Dashboard ===== */
+.admin-stats-bar {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.admin-stat-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 1.25rem;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+}
+
+.admin-stat-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.admin-stat-label {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.admin-users-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.admin-user-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.admin-user-card:hover {
+  transform: none;
+}
+
+.admin-user-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.admin-user-header:hover {
+  background: var(--bg-card-hover);
+}
+
+.admin-user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.admin-user-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.admin-user-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admin-user-email {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.admin-user-joined {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.1rem;
+}
+
+.admin-user-stats {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.admin-user-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+}
+
+.admin-user-stat-val {
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.admin-user-stat-lbl {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.admin-expand-arrow {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  transition: transform var(--transition-normal);
+  margin-left: 0.5rem;
+}
+
+.admin-expand-arrow.expanded {
+  transform: rotate(180deg);
+}
+
+/* Expanded sessions */
+.admin-user-sessions {
+  border-top: 1px solid var(--border-glass);
+  padding: 0.5rem 0;
+}
+
+.admin-no-sessions {
+  text-align: center;
+  padding: 1rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.admin-session-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1.5rem 0.6rem 4.5rem;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.admin-session-row:hover {
+  background: rgba(139, 92, 246, 0.06);
+}
+
+.admin-session-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.admin-session-role {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+}
+
+.admin-session-detail {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.admin-session-score {
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .admin-user-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .admin-user-stats {
+    align-self: flex-end;
+  }
+
+  .admin-session-row {
+    padding-left: 1.5rem;
+  }
+
+  .admin-stats-bar {
+    flex-wrap: wrap;
+  }
+}

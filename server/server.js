@@ -51,6 +51,7 @@ app.use('/api/auth', generalLimiter);
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/interview', require('./routes/interview'));
 app.use('/api/sessions', require('./routes/sessions'));
+app.use('/api/admin', require('./routes/admin'));
 
 // Health check
 app.get('/api/health', (req, res) => {

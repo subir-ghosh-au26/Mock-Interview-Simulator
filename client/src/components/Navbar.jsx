@@ -40,6 +40,16 @@ export default function Navbar() {
                         <span>History</span>
                     </NavLink>
 
+                    {user?.role === 'admin' && (
+                        <NavLink
+                            to="/admin"
+                            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                        >
+                            <span className="nav-icon">👑</span>
+                            <span>Admin</span>
+                        </NavLink>
+                    )}
+
                     <div className="nav-user">
                         <span className="nav-user-name">
                             {user?.role === 'admin' && <span className="admin-badge">Admin</span>}

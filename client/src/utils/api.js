@@ -65,6 +65,9 @@ export const api = {
     getSessions: () => request('/sessions'),
 
     getSession: (sessionId) => request(`/sessions/${sessionId}`),
+
+    // Admin endpoints
+    getAdminUsers: () => request('/admin/users'),
 };
 
 export default api;

@@ -9,6 +9,7 @@ import ConfigPage from './pages/ConfigPage';
 import InterviewPage from './pages/InterviewPage';
 import ReportPage from './pages/ReportPage';
 import HistoryPage from './pages/HistoryPage';
+import AdminPage from './pages/AdminPage';
 import './index.css';
 
 function ProtectedRoute({ children }) {
@@ -51,6 +52,7 @@ export default function App() {
               <Route path="/interview" element={<ProtectedRoute><InterviewPage /></ProtectedRoute>} />
               <Route path="/report" element={<ProtectedRoute><ReportPage /></ProtectedRoute>} />
               <Route path="/history" element={<ProtectedRoute><HistoryPage /></ProtectedRoute>} />
+              <Route path="/admin" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
             </Routes>
           </ToastProvider>
         </AuthProvider>
