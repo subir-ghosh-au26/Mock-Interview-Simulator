@@ -19,10 +19,12 @@ app.use(helmet({
     crossOriginEmbedderPolicy: false
 }));
 
-// CORS — only needed in development (Vite proxy handles it in dev, same-origin in prod)
-if (!isProduction) {
-    app.use(cors());
-}
+// CORS configuration
+const corsOptions = {
+    origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : true,
+    credentials: true
+};
+app.use(cors(corsOptions));
 
 // Body parsing
 app.use(express.json({ limit: '10mb' }));
