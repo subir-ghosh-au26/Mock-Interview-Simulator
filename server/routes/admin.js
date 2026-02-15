@@ -48,4 +48,24 @@ router.get('/users', async (req, res) => {
     }
 });
 
+/**
+ * GET /api/admin/users/:userId/sessions
+ * Get all completed sessions for a specific user
+ */
+router.get('/users/:userId/sessions', async (req, res) => {
+    try {
+        const sessions = await Session.find({
+            userId: req.params.userId,
+            status: 'completed'
+        })
+            .select('sessionId role difficulty interviewType duration percentageScore overallScore completedAt')
+            .sort({ completedAt: -1 });
+
+        res.json(sessions);
+    } catch (error) {
+        console.error('Admin user sessions error:', error);
+        res.status(500).json({ error: 'Failed to fetch user sessions' });
+    }
+});
+
 module.exports = router;

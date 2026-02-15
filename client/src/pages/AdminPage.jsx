@@ -11,6 +11,8 @@ export default function AdminPage() {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [expandedUser, setExpandedUser] = useState(null);
+    const [userSessions, setUserSessions] = useState({});
+    const [loadingSessions, setLoadingSessions] = useState(null);
 
     useEffect(() => {
         if (!isAdmin) {
@@ -31,8 +33,25 @@ export default function AdminPage() {
         }
     };
 
-    const toggleExpand = (userId) => {
-        setExpandedUser(expandedUser === userId ? null : userId);
+    const toggleExpand = async (userId) => {
+        if (expandedUser === userId) {
+            setExpandedUser(null);
+            return;
+        }
+        setExpandedUser(userId);
+
+        // Fetch full session history if not already loaded
+        if (!userSessions[userId]) {
+            setLoadingSessions(userId);
+            try {
+                const sessions = await api.getUserSessions(userId);
+                setUserSessions(prev => ({ ...prev, [userId]: sessions }));
+            } catch (err) {
+                toast.error('Failed to load interview history');
+            } finally {
+                setLoadingSessions(null);
+            }
+        }
     };
 
     const handleViewSession = async (sessionId) => {
@@ -161,10 +180,23 @@ export default function AdminPage() {
 
                                 {expandedUser === user._id && (
                                     <div className="admin-user-sessions">
-                                        {user.recentSessions.length === 0 ? (
+                                        <div className="admin-sessions-header">
+                                            <span>📋 Interview History — {user.name}</span>
+                                            <span className="admin-sessions-count">
+                                                {userSessions[user._id]?.length || user.totalInterviews} sessions
+                                            </span>
+                                        </div>
+                                        {loadingSessions === user._id ? (
+                                            <div className="admin-no-sessions">
+                                                <div className="thinking-dots" style={{ justifyContent: 'center' }}>
+                                                    <span /><span /><span />
+                                                </div>
+                                                Loading history...
+                                            </div>
+                                        ) : (userSessions[user._id] || []).length === 0 ? (
                                             <div className="admin-no-sessions">No interviews yet</div>
                                         ) : (
-                                            user.recentSessions.map((s) => (
+                                            (userSessions[user._id] || []).map((s) => (
                                                 <div
                                                     key={s.sessionId}
                                                     className="admin-session-row"
@@ -172,8 +204,10 @@ export default function AdminPage() {
                                                 >
                                                     <div className="admin-session-info">
                                                         <span className="admin-session-role">{s.role}</span>
-                                                        <span className="admin-session-detail">{s.difficulty}</span>
-                                                        <span className="admin-session-detail">{formatDate(s.completedAt)}</span>
+                                                        <span className="admin-session-detail">📊 {s.difficulty}</span>
+                                                        <span className="admin-session-detail">📝 {s.interviewType}</span>
+                                                        <span className="admin-session-detail">⏱ {s.duration} min</span>
+                                                        <span className="admin-session-detail">🗓 {formatDate(s.completedAt)}</span>
                                                     </div>
                                                     <div
                                                         className="admin-session-score"
