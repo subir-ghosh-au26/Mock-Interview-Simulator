@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../components/Toast';
+import { useAuth } from '../context/AuthContext';
 import api from '../utils/api';
 
 export default function HistoryPage() {
     const navigate = useNavigate();
     const toast = useToast();
+    const { isAdmin } = useAuth();
     const [sessions, setSessions] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -72,8 +74,14 @@ export default function HistoryPage() {
             <div className="history-container container">
                 <div className="history-header fade-in">
                     <div>
-                        <h1 className="page-title">Interview History</h1>
-                        <p className="page-subtitle">Review your past interview sessions</p>
+                        <h1 className="page-title">
+                            {isAdmin ? '👑 All Interview History' : 'Interview History'}
+                        </h1>
+                        <p className="page-subtitle">
+                            {isAdmin
+                                ? 'Viewing all users\' interview sessions'
+                                : 'Review your past interview sessions'}
+                        </p>
                     </div>
                     <button className="btn btn-primary" onClick={() => navigate('/')}>
                         + New Interview
@@ -105,7 +113,14 @@ export default function HistoryPage() {
                                 onClick={() => handleViewSession(s.sessionId)}
                             >
                                 <div className="history-info">
-                                    <div className="history-role">{s.role}</div>
+                                    <div className="history-role">
+                                        {s.role}
+                                        {isAdmin && s.userId && (
+                                            <span className="history-user-badge">
+                                                👤 {s.userId.name || s.userId.email}
+                                            </span>
+                                        )}
+                                    </div>
                                     <div className="history-details">
                                         <span className="history-detail">📊 {s.difficulty}</span>
                                         <span className="history-detail">📝 {s.interviewType}</span>

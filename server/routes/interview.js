@@ -3,6 +3,10 @@ const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
 const Session = require('../models/Session');
 const { generateQuestion, generateFollowUp, evaluateAnswer, generateReport } = require('../services/aiService');
+const { authMiddleware } = require('../middleware/auth');
+
+// All interview routes require authentication
+router.use(authMiddleware);
 
 // In-memory store for active sessions (for fast access during interview)
 const activeSessions = new Map();
@@ -29,6 +33,7 @@ router.post('/start', async (req, res) => {
         // Create session in DB
         const session = new Session({
             sessionId,
+            userId: req.user._id,
             role,
             difficulty,
             interviewType,

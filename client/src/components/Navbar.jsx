@@ -1,10 +1,19 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export default function Navbar() {
     const location = useLocation();
+    const navigate = useNavigate();
+    const { isAuthenticated, user, logout } = useAuth();
 
-    // Hide navbar during active interview
+    // Hide navbar during active interview and on auth pages
     if (location.pathname === '/interview') return null;
+    if (!isAuthenticated) return null;
+
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
+    };
 
     return (
         <nav className="navbar">
@@ -30,6 +39,17 @@ export default function Navbar() {
                         <span className="nav-icon">📋</span>
                         <span>History</span>
                     </NavLink>
+
+                    <div className="nav-user">
+                        <span className="nav-user-name">
+                            {user?.role === 'admin' && <span className="admin-badge">Admin</span>}
+                            {user?.name}
+                        </span>
+                        <button onClick={handleLogout} className="nav-link logout-btn">
+                            <span className="nav-icon">🚪</span>
+                            <span>Logout</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </nav>

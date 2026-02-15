@@ -8,10 +8,19 @@ class ApiError extends Error {
     }
 }
 
+function getAuthHeaders() {
+    const token = localStorage.getItem('token');
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+    return headers;
+}
+
 async function request(endpoint, options = {}) {
     const url = `${API_BASE}${endpoint}`;
     const config = {
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders(),
         ...options,
     };
 
@@ -33,6 +42,15 @@ async function request(endpoint, options = {}) {
 }
 
 export const api = {
+    // Auth endpoints
+    register: (name, email, password) =>
+        request('/auth/register', { method: 'POST', body: { name, email, password } }),
+
+    login: (email, password) =>
+        request('/auth/login', { method: 'POST', body: { email, password } }),
+
+    getMe: () => request('/auth/me'),
+
     // Interview endpoints
     startInterview: (config) =>
         request('/interview/start', { method: 'POST', body: config }),

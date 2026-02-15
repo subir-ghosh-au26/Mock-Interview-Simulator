@@ -11,6 +11,7 @@ const questionSchema = new mongoose.Schema({
 
 const sessionSchema = new mongoose.Schema({
     sessionId: { type: String, required: true, unique: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     role: { type: String, required: true },
     difficulty: { type: String, required: true },
     interviewType: { type: String, required: true },

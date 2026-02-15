@@ -45,8 +45,10 @@ const generalLimiter = rateLimit({
 
 app.use('/api/interview', aiLimiter);
 app.use('/api/sessions', generalLimiter);
+app.use('/api/auth', generalLimiter);
 
 // API Routes
+app.use('/api/auth', require('./routes/auth'));
 app.use('/api/interview', require('./routes/interview'));
 app.use('/api/sessions', require('./routes/sessions'));
 
