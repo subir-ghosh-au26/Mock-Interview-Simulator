@@ -71,22 +71,7 @@ The project followed an **Iterative AI-Assisted Development** approach:
 
 ## 6. Database Schema Summary
 
-### Users
-| Field | Type | Description |
-|---|---|---|
-| `name` | String | Full user name |
-| `email` | String | Unique login credential |
-| `password` | String | Bcrypt hashed password |
-| `role` | String | 'user' or 'admin' |
-
-### Sessions
-| Field | Type | Description |
-|---|---|---|
-| `userId` | ObjectId | Link to User document |
-| `role` | String | Job role practiced |
-| `questions` | Array | Objects containing Q, A, Feedback, and Score |
-| `overallScore`| Number | Weighted average performance |
-| `percentage` | Number | Final score out of 100 |
+The database uses MongoDB with two primary collections: `Users` and `Sessions`. For full technical specifications, field types, and entity relationship diagrams, please refer to the dedicated [SCHEMA.md](file:///d:/Subir/AI-Powered%20Adaptive%20Mock%20Interview%20Simulator/SCHEMA.md) file.
 
 ---
 *Report Generated: February 15, 2026*

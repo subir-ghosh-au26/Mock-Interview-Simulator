@@ -4,6 +4,10 @@ NexRound is a full-stack, real-time AI-driven mock interview platform for techni
 
 ---
 
+[**📖 View Full Documentation**](file:///d:/Subir/AI-Powered%20Adaptive%20Mock%20Interview%20Simulator/DOCUMENTATION.md) | [**🧠 The Prompt Blueprint (AI Logic)**](file:///d:/Subir/AI-Powered%20Adaptive%20Mock%20Interview%20Simulator/PROMPT_BLUEPRINT.md) | [**🗄️ Database Schema**](file:///d:/Subir/AI-Powered%20Adaptive%20Mock%20Interview%20Simulator/SCHEMA.md)
+
+---
+
 ## ✨ Features
 
 - **Secure Authentication** — JWT-based login and registration system.
