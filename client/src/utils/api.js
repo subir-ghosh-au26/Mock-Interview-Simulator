@@ -1,0 +1,52 @@
+const API_BASE = '/api';
+
+class ApiError extends Error {
+    constructor(message, status) {
+        super(message);
+        this.status = status;
+        this.name = 'ApiError';
+    }
+}
+
+async function request(endpoint, options = {}) {
+    const url = `${API_BASE}${endpoint}`;
+    const config = {
+        headers: { 'Content-Type': 'application/json' },
+        ...options,
+    };
+
+    if (config.body && typeof config.body === 'object') {
+        config.body = JSON.stringify(config.body);
+    }
+
+    const res = await fetch(url, config);
+    const data = await res.json();
+
+    if (!res.ok) {
+        throw new ApiError(
+            data.error || `Request failed (${res.status})`,
+            res.status
+        );
+    }
+
+    return data;
+}
+
+export const api = {
+    // Interview endpoints
+    startInterview: (config) =>
+        request('/interview/start', { method: 'POST', body: config }),
+
+    evaluateAnswer: (sessionId, answer) =>
+        request('/interview/evaluate', { method: 'POST', body: { sessionId, answer } }),
+
+    generateReport: (sessionId) =>
+        request('/interview/report', { method: 'POST', body: { sessionId } }),
+
+    // Session endpoints
+    getSessions: () => request('/sessions'),
+
+    getSession: (sessionId) => request(`/sessions/${sessionId}`),
+};
+
+export default api;
