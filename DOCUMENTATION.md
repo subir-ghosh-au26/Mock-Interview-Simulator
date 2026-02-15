@@ -58,7 +58,19 @@ For detailed schema definitions, relationships, and validation rules, see [SCHEM
 
 ---
 
-## 5. Development Method
+## 5. Uptime Monitoring (UptimeRobot)
+
+NexRound includes dedicated health check endpoints for external monitoring services like **UptimeRobot**.
+
+### Configuration:
+- **Monitor Type**: HTTP(s)
+- **URL**: `https://your-deployed-app.com/health` (or `/api/health`)
+- **Monitoring Interval**: 1–5 minutes
+- **Logic**: The server responds with `200 OK` and a JSON object containing database connectivity status.
+
+---
+
+## 6. Development Method
 
 ### AI-Assisted Development (Agentic Coding)
 

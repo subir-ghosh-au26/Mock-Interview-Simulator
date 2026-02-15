@@ -53,9 +53,17 @@ app.use('/api/interview', require('./routes/interview'));
 app.use('/api/sessions', require('./routes/sessions'));
 app.use('/api/admin', require('./routes/admin'));
 
-// Health check
-app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+// Health check — suitable for UptimeRobot monitoring
+app.get(['/health', '/api/health'], (req, res) => {
+    const mongoose = require('mongoose');
+    const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
+
+    res.json({
+        status: dbStatus === 'connected' ? 'ok' : 'error',
+        database: dbStatus,
+        uptime: process.uptime(),
+        timestamp: new Date().toISOString()
+    });
 });
 
 // Serve static client build in production
